@@ -1,0 +1,17 @@
+{
+  "name": "俄语语法卡 · 大学俄语 3",
+  "short_name": "语法卡",
+  "description": "24 个语法点的俄语挖空记忆卡",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f2ece0",
+  "theme_color": "#f2ece0",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
