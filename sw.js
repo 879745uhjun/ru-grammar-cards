@@ -1,6 +1,6 @@
 /* 离线缓存：仅在 http(s) 下注册生效；file:// 打开时浏览器会忽略。
    升版时把 CACHE 改成新版本号，旧缓存会在 activate 时清掉。 */
-var CACHE = 'ru-grammar-cards-alpha-v0.1';
+var CACHE = 'ru-grammar-cards-alpha-v0.1.1';
 
 var ASSETS = [
   './', './index.html', './styles.css', './app.js',
@@ -31,15 +31,17 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
+  if (new URL(e.request.url).origin !== location.origin) return;
+
+  // 网络优先：在线时永远拿最新文件，离线时回退到缓存
   e.respondWith(
-    caches.match(e.request).then(function (hit) {
-      if (hit) return hit;
-      return fetch(e.request).then(function (resp) {
-        var copy = resp.clone();
-        caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
-        return resp;
-      }).catch(function () {
-        return caches.match('./index.html');
+    fetch(e.request).then(function (resp) {
+      var copy = resp.clone();
+      caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
+      return resp;
+    }).catch(function () {
+      return caches.match(e.request).then(function (hit) {
+        return hit || caches.match('./index.html');
       });
     })
   );
