@@ -19,7 +19,7 @@
 
   var state = {
     progress: {},
-    settings: { newPerDay: 12, theme: 'light', explanation: 'full', showHint: true },
+    settings: { newPerDay: 12, theme: 'light', explanation: 'full', showHint: false, hintDefaultOff: true },
     session: null
   };
 
@@ -69,6 +69,11 @@
       if (data && typeof data === 'object') {
         state.progress = data.progress || {};
         state.settings = Object.assign(state.settings, data.settings || {});
+        // 一次性迁移：提示改为默认关闭（此前的存档统一关掉，之后仍可手动打开）
+        if (state.settings.hintDefaultOff !== true) {
+          state.settings.showHint = false;
+          state.settings.hintDefaultOff = true;
+        }
       }
     } catch (e) { /* 忽略损坏数据 */ }
   }
