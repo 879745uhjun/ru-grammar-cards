@@ -1,5 +1,6 @@
-/* 离线缓存：仅在 http(s) 下注册生效；file:// 打开时浏览器会忽略。 */
-var CACHE = 'ru-grammar-cards-v1';
+/* 离线缓存：仅在 http(s) 下注册生效；file:// 打开时浏览器会忽略。
+   升版时把 CACHE 改成新版本号，旧缓存会在 activate 时清掉。 */
+var CACHE = 'ru-grammar-cards-alpha-v0.1';
 
 var ASSETS = [
   './', './index.html', './styles.css', './app.js',

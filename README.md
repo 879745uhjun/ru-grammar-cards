@@ -128,6 +128,7 @@ node check.js
 版本数据在 `data/versions.js`，界面徽章、首次打开的更新弹窗、`#/changelog` 更新日志都读这一份。
 
 - 升版：在数组最前面加一条（`v`、`date`、`title`、`items`），徽章和弹窗自动更新。
+- 同时把 `sw.js` 里的 `CACHE` 改成新版本号，避免离线缓存读到旧的 JS。
 - 当前：**Alpha v0.1**（首个可运行版本）。
 
 ## 后续
